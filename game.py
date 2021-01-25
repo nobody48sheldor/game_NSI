@@ -31,7 +31,8 @@ class game:
         if self.key_pressed.get(pygame.K_LEFT) == True:
             self.player.left()
 
-        if rocket.rocket_launch_C == True:
+        if game.rocket.rocket_launch_C == True:
+            print(rocket.rocket_launch_C, " a")
             screen.blit(self.rocket.image, self.rocket.rect)
 
 class player:
@@ -72,13 +73,13 @@ class rocket:
         self.rocket_launch_C = False
 
     def rocket_launch(self):
-        print(self.v)
+        print(self.rocket_launch_C)
         if self.v < self.velocity:
             self.rect.x = self.rect.x + (diff_x)
             self.rect.y = self.rect.y + (diff_y)
             self.v = self.v + 1
         if self.v == self.velocity:
-            print("a")
+            self.rocket_launch_C = False
 
 
 
@@ -89,14 +90,13 @@ player.__init__(player)
 rocket.__init__(rocket)
 game()
 player()
-rocket()
 
 while running == True:
     screen.blit(background,(0, 0))
     game.update(game, screen)
     pygame.display.flip()
 
-    if rocket.rocket_launch_C == True:
+    if game.rocket.rocket_launch_C == True:
         game.rocket.rocket_launch()
 
     for event in pygame.event.get():
@@ -116,6 +116,6 @@ while running == True:
             diff_x = int((mouse_pos[0] - game.player.rect.x)/rocket.velocity)
             diff_y = int((mouse_pos[1] - game.player.rect.y)/rocket.velocity)
             rocket.v = 0
-            rocket.__init__(rocket)
-            rocket.rocket_launch_C = True
+            game.rocket.__init__()
+            game.rocket.rocket_launch_C = True
             print("exec")
