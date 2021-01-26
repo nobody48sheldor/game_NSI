@@ -80,6 +80,7 @@ class rocket:
             self.v = self.v + 1
         if self.v == self.velocity:
             self.rocket_launch_C = False
+            self.__init__()
 
 
 
@@ -108,14 +109,14 @@ while running == True:
             game.key_pressed[event.key] = True
         elif event.type == pygame.KEYUP:
             game.key_pressed[event.key] = False
-
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            game.player.rocket = game.player.rocket - 1
-            mouse_pos = pygame.mouse.get_pos()
-            player_pos = (game.player.rect.x, game.player.rect.y)
-            diff_x = int((mouse_pos[0] - game.player.rect.x)/rocket.velocity)
-            diff_y = int((mouse_pos[1] - game.player.rect.y)/rocket.velocity)
-            rocket.v = 0
-            game.rocket.__init__()
-            game.rocket.rocket_launch_C = True
-            print("exec")
+        if game.rocket.v == 0:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                game.player.rocket = game.player.rocket - 1
+                mouse_pos = pygame.mouse.get_pos()
+                player_pos = (game.player.rect.x, game.player.rect.y)
+                diff_x = int((mouse_pos[0] - game.player.rect.x)/rocket.velocity)
+                diff_y = int((mouse_pos[1] - game.player.rect.y)/rocket.velocity)
+                rocket.v = 0
+                game.rocket.__init__()
+                game.rocket.rocket_launch_C = True
+                print("exec")
